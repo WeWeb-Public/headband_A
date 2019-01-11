@@ -1,5 +1,5 @@
 <template>
-    <div class="headband_A" ww-height="100">
+    <div class="headband_A">
         <!-- wwManager:start -->
         <wwSectionEditMenu v-bind:sectionCtrl="sectionCtrl"></wwSectionEditMenu>
         <!-- wwManager:end -->
@@ -10,8 +10,12 @@
             <div class="block-img-container">
                 <div class="center-text">
                     <div class="text">
-                        <h1><wwObject v-bind:ww-object="section.data.title"></wwObject></h1>
+                        <h1>
+                            <wwObject v-bind:ww-object="section.data.title"></wwObject>
+                        </h1>
+                        
                         <wwObject v-bind:ww-object="section.data.subtitle"></wwObject>
+                        
                         <div class="button-container">
                             <wwObject class="button-wrapper" v-bind:ww-object="section.data.button"></wwObject>
                         </div>
@@ -39,20 +43,25 @@ export default {
     },
     created() {
         //Initialize section data
-        this.section.data = this.section.data || {} 
+        this.section.data = this.section.data || {}
 
-        if (!this.section.data.background)
-            this.section.data.background = wwLib.wwObject.getDefault({ type: 'ww-color' });
-        
-        if (!this.section.data.title)
-            this.section.data.title = wwLib.wwObject.getDefault({ type: 'ww-text' });
-    
-        if (!this.section.data.subtitle)
-            this.section.data.subtitle = wwLib.wwObject.getDefault({ type: 'ww-text' });
-
-        if (!this.section.data.button)
-            this.section.data.button = wwLib.wwObject.getDefault({ type: 'ww-button', data: { color: 'black', borderColor: 'black' } });
-
+        if (!this.section.data.background) {
+            this.section.data.background = wwLib.wwObject.getDefault({ 
+                type: 'ww-image',  
+                data: {
+                    url: 'http://cdn.wewebapp.io/public/images/weweb-wp.png'
+                } 
+            });
+        }
+        if (!this.section.data.title) {
+            this.section.data.title = wwLib.wwObject.getDefault({ type: 'ww-text', data: { color: 'white' } });
+        }
+        if (!this.section.data.subtitle) {
+            this.section.data.subtitle = wwLib.wwObject.getDefault({ type: 'ww-text', data: { color: 'white' }  });
+        }
+        if (!this.section.data.button) {
+            this.section.data.button = wwLib.wwObject.getDefault({ type: 'ww-button' });
+        }
         this.sectionCtrl.update(this.section);
     },
     methods: {}
@@ -110,33 +119,6 @@ export default {
     margin-top: 30px;
 }
 
-.headband_A .block-img-container .gradient-bot-text .text {
-    color: white;
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    -ms-transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
-}
-
-.headband_A .block-img-container .gradient-mid-text {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
-.headband_A .block-img-container .gradient-mid-text .text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
-
 .headband_A .block-title {
     margin-top: 10px;
 }
@@ -150,24 +132,19 @@ export default {
     margin-top: 30px;
 }
 
-.section-padding {
+.headband_A .section-padding {
     padding: 30px 15px
 }
 
 @media (min-width: 768px) {
-    .section-padding {
+    .headband_A .section-padding {
         padding: 50px 30px
     }
 }
 
 @media (min-width: 992px) {
-    .section-padding {
+    .headband_A .section-padding {
         padding: 75px 50px
     }
 }
-
-.block {
-    display: block;
-}
-
 </style>
